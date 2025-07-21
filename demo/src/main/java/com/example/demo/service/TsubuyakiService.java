@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.TsubuyakiEntity;
@@ -26,7 +26,7 @@ public class TsubuyakiService {
         if (name == null || name.length() == 0){
             tsubuyaki.setName("名無しさん");
         }
-        tsubuyaki.setCreatedAt(new Date(0));
+        tsubuyaki.setCreatedAt(LocalDate.now());
         return tsubuyakiRepository.save(tsubuyaki);
     }
 

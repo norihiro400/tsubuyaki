@@ -12,9 +12,6 @@ import com.example.demo.form.TsubuyakiForm;
 import com.example.demo.service.TsubuyakiService;
 import com.example.demo.entity.TsubuyakiEntity;
 
-import lombok.var;
-
-
 
 @Controller
 @RequestMapping("/tsubuyaki")
@@ -33,27 +30,33 @@ public class TsubuyakiController {
 
     // つぶやきの取得
     @GetMapping("/read")
-    public String showTsubuyakiList(Model model){
+    public String showTsubuyakiList(Model model,TsubuyakiForm tsubuyakiForm){
+        if (tsubuyakiForm == null){
+            tsubuyakiForm = new TsubuyakiForm(null,null);
+        }
+        model.addAttribute("tsubuyakiForm", tsubuyakiForm);
         var tsubuyaki_list = tsubuyakiService.getAllTsubuyaki();
         model.addAttribute("tsubuyakiList", tsubuyaki_list);
         return "tsubuyaki_list";
     }
 
     // つぶやきの投稿
-    @PostMapping("")
+    @PostMapping
     public String postTsubuyaki(TsubuyakiForm form){
         var  entity = form.toEntity();
         tsubuyakiService.postTsubuyaki(entity);
-        return "redirect://read";
+        return "redirect:/tsubuyaki/read";
     }
     
+    // つぶやきの検索
     @GetMapping("/search")
     public String showSearchresults(@RequestParam(name = "keyword",required = false) String keyword, Model model ){
         if (keyword != null && !keyword.isEmpty()){
             List<TsubuyakiEntity> searchResult = tsubuyakiService.searchTsubuyaki(keyword);
+            if (searchResult.isEmpty()){
+                model.addAttribute("emptyMessage", "該当するつぶやきはありません。");
+            }
             model.addAttribute("searchResult", searchResult);
-        }else {
-            model.addAttribute("enptyMessage", "該当するつぶやきはありません");
         }
         return "search_result";
     }

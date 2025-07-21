@@ -7,6 +7,6 @@ public record TsubuyakiForm(
     String comment
 ) {
     public TsubuyakiEntity toEntity(){
-        return new TsubuyakiEntity(null,name,comment,null);
+        return new TsubuyakiEntity(null,name(),comment(),null);
     }
 }
