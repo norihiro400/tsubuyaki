@@ -14,7 +14,7 @@
     </ul>
 
     <h2>投稿する</h2>
-    <form th:action="@{/tsubuyaki}" method="post">
+    <form th:action="@{/tsubuyaki}" method="post" th:object="${tsubuyakiForm}">
         <label for="name">お名前</label>
         <input type="text" th:field = *{name} value="名無しさん">
         <label for="comment">つぶやき</label>
@@ -24,7 +24,7 @@
 
     <h2>検索</h2>
     <form th:action="@{/tsubuyaki/search}" method="get">
-        <input type="text" name="keyword" placeholder="キーワードを入力">
+        <input type="text" name="keyword" placeholder="キーワードを入力" required>
         <button type="submit">検索する</button>
     </form>
 </body>
