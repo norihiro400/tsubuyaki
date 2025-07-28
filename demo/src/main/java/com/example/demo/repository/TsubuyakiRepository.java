@@ -12,4 +12,5 @@ public interface TsubuyakiRepository extends JpaRepository<TsubuyakiEntity,Long>
     
     @Query("SELECT t FROM TsubuyakiEntity t WHERE t.comment LIKE %:keyword%")
     List<TsubuyakiEntity> searchTsubuyaki(@Param("keyword") String keyword);
+    
 }
